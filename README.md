@@ -20,12 +20,17 @@ A Minecraft mod that makes foxes more useful, customizable, and fun. Tame foxes,
 
 ## Supported Languages
 
-| Language           | Translator |
-|--------------------|------------|
-| English            | Vortianski |
-| Russian            | Vortianski |
-| Ukrainian          | Vortianski |
-| Portuguese(Brazil) | Cremonn    |
+| Language            | Translator |
+|---------------------|------------|
+| English             | Vortianski |
+| Upside Down English | Vortianski |
+| Pirate Speak        | Vortianski |
+| LOLCAT              | Vortianski |
+| Russian             | Vortianski |
+| Ukrainian           | Vortianski |
+| Portuguese(Brazil)  | Cremonn    |
+| German              | clo3eX     |
+| Spanish             | Akashii    |
 
 ## Features
 

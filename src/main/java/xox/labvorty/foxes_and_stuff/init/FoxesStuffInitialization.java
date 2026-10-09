@@ -45,6 +45,24 @@ public class FoxesStuffInitialization {
                     ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/silver/fox_sleep.png"),
                     ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/silver/fluff.png")
             );
+            ModdedFoxVariants.registerVariant(
+                    "marble",
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/marble/fox.png"),
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/marble/fox_sleep.png"),
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/marble/fluff.png")
+            );
+            ModdedFoxVariants.registerVariant(
+                    "very_red",
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/very_red/fox.png"),
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/very_red/fox_sleep.png"),
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/very_red/fluff.png")
+            );
+            ModdedFoxVariants.registerVariant(
+                    "fennec",
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/fennec/fox.png"),
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/fennec/fox_sleep.png"),
+                    ResourceLocation.fromNamespaceAndPath("foxesstuff", "textures/entity/variants/fennec/fluff.png")
+            );
         });
     }
 
