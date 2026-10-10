@@ -14,6 +14,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -136,6 +138,7 @@ public class FoxEvents {
         event.registerLayerDefinition(FoxFluffModel.LAYER_LOCATION, FoxFluffModel::createBodyLayer);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
         if (event.getRenderer(EntityType.FOX) instanceof FoxRenderer renderer) {
