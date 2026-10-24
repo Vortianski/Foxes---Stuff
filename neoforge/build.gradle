@@ -1,0 +1,98 @@
+plugins {
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+def vortyLibPath = System.getenv("VORTYLIB_PATH") ?: "../Projects/vortylib-template-1.21.1"
+def hasVortyLibProject = rootProject.file(vortyLibPath).exists()
+
+base {
+    archivesName = "${mod_id}-neoforge"
+}
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', rootProject.file('core/src/generated/resources/').getAbsolutePath(), '--existing', rootProject.file('core/src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDir rootProject.file('core/src/main/java')
+        resources.srcDir rootProject.file('core/src/main/resources')
+        resources.srcDir rootProject.file('core/src/generated/resources')
+        resources.exclude '**/*.bbmodel'
+        resources.exclude '**/.cache/**'
+    }
+}
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    implementation "dev.architectury:architectury-neoforge:${architectury_version}"
+
+    if (hasVortyLibProject) {
+        implementation("xox.labvorty.vortylib:vortylib-template-1.21.1:1.2.2")
+    }
+
+    runtimeOnly("dev.emi:emi-neoforge:1.1.22+1.21.1")
+}
+
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            architectury_version   : architectury_version,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
