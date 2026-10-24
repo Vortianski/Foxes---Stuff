@@ -1,5 +1,6 @@
 plugins {
     id 'net.neoforged.moddev' version '2.0.148'
+    id 'maven-publish'
 }
 
 def vortyLibPath = System.getenv("VORTYLIB_PATH") ?: "../Projects/vortylib-template-1.21.1"
@@ -96,3 +97,19 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 
 sourceSets.main.resources.srcDir generateModMetadata
 neoForge.ideSyncTask generateModMetadata
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "${mod_id}-neoforge"
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'localNeoForge'
+            url = uri(rootProject.file('repo/neoforge'))
+        }
+    }
+}
