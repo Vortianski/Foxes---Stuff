@@ -3,9 +3,10 @@ A Minecraft mod that makes foxes more useful, customizable, and fun. Tame foxes,
 
 ## Version Support
 ### SUPPORTED
-| Loader   | Version |
-|----------|---------|
-| NeoForge | 1.21.1  |
+| Loader   | Version | Contributor     |
+|----------|---------|-----------------|
+| NeoForge | 1.21.1  | none            |
+| Fabric   | 1.21.1  | nagibatirowanie |
 
 ### PLANNED
 | Loader   | Version |
@@ -16,7 +17,7 @@ A Minecraft mod that makes foxes more useful, customizable, and fun. Tame foxes,
 | Loader | Version | Explanation |
 |--------|---------|-------------|
 | Forge  | ≤1.20.1 | Major code changes, will take too much time |
-| Fabric | ≤1.20.1 | No plans for a Fabric version at this time |
+| Fabric | ≤1.20.1 | Major code changes, will take too much time |
 
 ## Supported Languages
 
