@@ -1,5 +1,25 @@
 pluginManagement {
     repositories {
+        maven {
+            name = "Fabric"
+            url = "https://maven.fabricmc.net/"
+        }
+
+        maven {
+            name = "Architectury"
+            url = "https://maven.architectury.dev/"
+        }
+
+        maven {
+            name = "NeoForged"
+            url = "https://maven.neoforged.net/releases/"
+        }
+
+        maven {
+            name = "ParchmentMC"
+            url = "https://maven.parchmentmc.org"
+        }
+
         gradlePluginPortal()
     }
 }
@@ -8,5 +28,12 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
+rootProject.name = 'foxes-and-stuff'
+
+include 'fabric'
+include 'neoforge'
+
 def vortyLibPath = System.getenv("VORTYLIB_PATH") ?: "../Projects/vortylib-template-1.21.1"
-includeBuild(vortyLibPath)
+if (file(vortyLibPath).exists()) {
+    includeBuild(vortyLibPath)
+}
