@@ -1,27 +1,26 @@
 package xox.labvorty.foxes_and_stuff.neoforge;
 
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import org.apache.commons.lang3.mutable.MutableFloat;
 import xox.labvorty.foxes_and_stuff.FoxPlatform;
-import xox.labvorty.foxes_and_stuff.items.armor.FoxArmorItem;
 import xox.labvorty.foxes_and_stuff.mixins.LivingEntityAccessor;
 import xox.labvorty.foxes_and_stuff.inventory.FoxInventoryMenu;
+import xox.labvorty.foxes_and_stuff.items.armor.FoxArmorItem;
 
 import java.util.Stack;
 
 public class NeoForgeFoxPlatform extends FoxPlatform {
     @Override
-    public FoxArmorItem createFoxArmor(Holder<ArmorMaterial> material, Item.Properties properties) {
+    public FoxArmorItem createFoxArmor(ArmorMaterial material, Item.Properties properties) {
         return new NeoForgeFoxArmorItem(material, properties);
     }
 

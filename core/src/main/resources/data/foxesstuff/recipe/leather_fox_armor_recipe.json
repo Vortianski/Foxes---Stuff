@@ -6,12 +6,8 @@
     "b b"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:leather"
-    },
-    "b": {
-      "item": "minecraft:string"
-    }
+    "a": "minecraft:leather",
+    "b": "minecraft:string"
   },
   "result": {
     "id": "foxesstuff:leather_fox_armor",

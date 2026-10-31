@@ -24,7 +24,6 @@ public class NeoForgeClientEvents {
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             NeoForgeClientConfig.bind();
-            FoxesStuffClient.init();
 
             if (ModList.get().isLoaded("vortylib")) {
                 VortyLibCompat.init();

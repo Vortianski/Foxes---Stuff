@@ -6,12 +6,8 @@
     "b b"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:diamond"
-    },
-    "b": {
-      "item": "minecraft:string"
-    }
+    "a": "minecraft:diamond",
+    "b": "minecraft:string"
   },
   "result": {
     "id": "foxesstuff:diamond_fox_armor",

@@ -12,7 +12,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
@@ -83,7 +83,7 @@ public class FoxEvents {
         if (hand != InteractionHand.MAIN_HAND) return false;
 
         ItemStack stack = player.getItemInHand(hand);
-        boolean client = fox.level().isClientSide;
+        boolean client = fox.level().isClientSide();
 
         if (!tf.foxesstuff$isFoxTame()) {
             if (stack.is(FOX_TAMING_ITEMS) && !fox.isBaby()) {
@@ -105,6 +105,9 @@ public class FoxEvents {
         }
 
         if (stack.getItem() instanceof FoxSpeciesRoll) {
+            // Requires baby texture redraw.
+            if (fox.isBaby()) return true;
+
             if (!client) {
                 handleCustomFood(fox, tf, player, stack);
             }
@@ -116,7 +119,7 @@ public class FoxEvents {
         if (food != null && fox.getHealth() < fox.getMaxHealth()) {
             if (!client) {
                 fox.heal(Math.max(1, food.nutrition()));
-                fox.playSound(fox.getEatingSound(stack), 1.0F, 1.0F);
+                tf.foxesstuff$playEatingSound();
                 stack.consume(1, player);
                 ((ServerLevel) fox.level()).sendParticles(ParticleTypes.HEART,
                         fox.getX(), fox.getY(0.7), fox.getZ(), 3, 0.3, 0.3, 0.3, 0.02);
@@ -127,7 +130,7 @@ public class FoxEvents {
         if (!tf.foxesstuff$isFoxOwnedBy(player)) return false;
 
         if (stack.getItem() instanceof DyeItem dye) {
-            DyeColor color = dye.getDyeColor();
+            DyeColor color = stack.getOrDefault(DataComponents.DYE, DyeColor.WHITE);
             if (color != tf.foxesstuff$getCollarColor()) {
                 if (!client) {
                     tf.foxesstuff$setCollarColor(color);
@@ -153,7 +156,7 @@ public class FoxEvents {
     }
 
     private static void handleCustomFood(Fox fox, TameableFox tameableFox, Player player, ItemStack stack) {
-        fox.playSound(fox.getEatingSound(stack), 1.0F, 1.0F);
+        tameableFox.foxesstuff$playEatingSound();
         stack.consume(1, player);
 
         RandomSource randomSource = player.getRandom();
@@ -164,7 +167,7 @@ public class FoxEvents {
             }
         } else {
             tameableFox.foxesstuff$setModdedVariant("");
-            fox.setVariant(randomSource.nextBoolean() ? Fox.Type.RED : Fox.Type.SNOW);
+            fox.setComponent(DataComponents.FOX_VARIANT, randomSource.nextBoolean() ? Fox.Variant.RED : Fox.Variant.SNOW);
         }
     }
 }

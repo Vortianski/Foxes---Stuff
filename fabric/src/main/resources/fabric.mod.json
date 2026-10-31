@@ -22,10 +22,10 @@
     "foxesstuff.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.0",
+    "fabricloader": ">=0.18.5",
     "fabric-api": "*",
-    "minecraft": "~1.21.1",
-    "architectury": ">=13.0.0",
-    "java": ">=21"
+    "minecraft": "26.1.2",
+    "architectury": ">=20.1.0",
+    "java": ">=25"
   }
 }

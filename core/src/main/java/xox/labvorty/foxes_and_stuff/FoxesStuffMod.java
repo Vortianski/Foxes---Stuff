@@ -1,7 +1,7 @@
 package xox.labvorty.foxes_and_stuff;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import xox.labvorty.foxes_and_stuff.data.events.FoxEvents;
 import xox.labvorty.foxes_and_stuff.init.FoxesStuffInitialization;
@@ -20,7 +20,7 @@ public class FoxesStuffMod {
         FoxEvents.init();
     }
 
-    public static ResourceLocation location(String string) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, string);
+    public static Identifier location(String string) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, string);
     }
 }

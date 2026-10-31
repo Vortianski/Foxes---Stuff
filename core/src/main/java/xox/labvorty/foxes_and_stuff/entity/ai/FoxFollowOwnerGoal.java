@@ -2,7 +2,7 @@ package xox.labvorty.foxes_and_stuff.entity.ai;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.level.pathfinder.PathType;
 import xox.labvorty.foxes_and_stuff.mixin_helpers.TameableFox;
 

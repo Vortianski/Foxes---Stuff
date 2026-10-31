@@ -1,7 +1,7 @@
 package xox.labvorty.foxes_and_stuff.init;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -15,7 +15,7 @@ public class FoxesStuffResources {
     @SubscribeEvent
     public static void addPackFinders(AddPackFindersEvent event) {
         event.addPackFinders(
-                ResourceLocation.fromNamespaceAndPath(FoxesStuffMod.MOD_ID, "resourcepacks/better_vanilla_foxes"),
+                Identifier.fromNamespaceAndPath(FoxesStuffMod.MOD_ID, "resourcepacks/better_vanilla_foxes"),
                 PackType.CLIENT_RESOURCES,
                 Component.literal("F&S|Better Vanilla Foxes"),
                 PackSource.BUILT_IN,

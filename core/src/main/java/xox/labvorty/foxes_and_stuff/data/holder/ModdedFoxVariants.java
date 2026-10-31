@@ -1,6 +1,6 @@
 package xox.labvorty.foxes_and_stuff.data.holder;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,7 +11,7 @@ import java.util.Map;
 public class ModdedFoxVariants {
     private static final Map<String, FoxVariant> VARIANTS = new HashMap<>();
 
-    public static void registerVariant(String type, ResourceLocation defaultTexture, ResourceLocation sleepingTexture, ResourceLocation fluffTexture) {
+    public static void registerVariant(String type, Identifier defaultTexture, Identifier sleepingTexture, Identifier fluffTexture) {
         registerVariant(type, new FoxVariant(defaultTexture, sleepingTexture, fluffTexture));
     }
 

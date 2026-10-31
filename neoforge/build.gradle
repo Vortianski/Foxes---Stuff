@@ -3,20 +3,12 @@ plugins {
     id 'maven-publish'
 }
 
-def vortyLibPath = System.getenv("VORTYLIB_PATH") ?: "../Projects/vortylib-template-1.21.1"
-def hasVortyLibProject = rootProject.file(vortyLibPath).exists()
-
 base {
     archivesName = "${mod_id}-neoforge"
 }
 
 neoForge {
     version = project.neo_version
-
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version
-    }
 
     runs {
         client {
@@ -69,12 +61,6 @@ configurations {
 
 dependencies {
     implementation "dev.architectury:architectury-neoforge:${architectury_version}"
-
-    if (hasVortyLibProject) {
-        implementation("xox.labvorty.vortylib:vortylib-template-1.21.1:1.2.2")
-    }
-
-    runtimeOnly("dev.emi:emi-neoforge:1.1.22+1.21.1")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

@@ -5,13 +5,13 @@ A Minecraft mod that makes foxes more useful, customizable, and fun. Tame foxes,
 ### SUPPORTED
 | Loader   | Version | Contributor     |
 |----------|---------|-----------------|
-| NeoForge | 1.21.1  | none            |
-| Fabric   | 1.21.1  | nagibatirowanie |
+| NeoForge | 26.1.2  | none            |
+| Fabric   | 26.1.2  | nagibatirowanie |
 
 ### PLANNED
 | Loader   | Version |
 |----------|---------|
-| NeoForge | 1.21    |
+| NeoForge | —       |
 
 ### NOT PLANNED
 | Loader | Version | Explanation |

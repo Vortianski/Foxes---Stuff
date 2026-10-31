@@ -1,11 +1,11 @@
 package xox.labvorty.foxes_and_stuff.mixins;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.SimpleContainer;
@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.DyeColor;
@@ -44,13 +44,12 @@ import xox.labvorty.foxes_and_stuff.items.armor.FoxArmorItem;
 import xox.labvorty.foxes_and_stuff.mixin_helpers.TameableFox;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Mixin(Fox.class)
 public abstract class FoxMixin extends Animal implements TameableFox {
     @Unique
-    private static final EntityDataAccessor<Optional<UUID>> foxesstuff$OWNER = SynchedEntityData.defineId(Fox.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<String> foxesstuff$OWNER = SynchedEntityData.defineId(Fox.class, EntityDataSerializers.STRING);
     @Unique
     private static final EntityDataAccessor<Integer> foxesstuff$COLLAR = SynchedEntityData.defineId(Fox.class, EntityDataSerializers.INT);
     @Unique
@@ -60,23 +59,23 @@ public abstract class FoxMixin extends Animal implements TameableFox {
     @Unique
     private static final EntityDataAccessor<ItemStack> foxesstuff$ARMOR_STACK = SynchedEntityData.defineId(Fox.class, EntityDataSerializers.ITEM_STACK);
     @Unique
-    private static final ResourceLocation foxesstuff$HEALTH_ID = FoxesStuffMod.location("fox_tamed_health");
+    private static final Identifier foxesstuff$HEALTH_ID = FoxesStuffMod.location("fox_tamed_health");
     @Unique
-    private static final ResourceLocation foxesstuff$ARMOR_ID = FoxesStuffMod.location("fox_armor_bonus");
+    private static final Identifier foxesstuff$ARMOR_ID = FoxesStuffMod.location("fox_armor_bonus");
     @Unique
     private SimpleContainer foxesstuff$inventory;
     @Shadow
-    abstract void addTrustedUUID(@Nullable UUID uuid);
+    private void addTrustedEntity(LivingEntity entity) {}
     @Shadow
-    abstract boolean trusts(UUID uuid);
+    private boolean trusts(LivingEntity entity) { return false; }
     @Shadow
-    abstract List<UUID> getTrustedUUIDs();
+    private void clearStates() {}
     @Shadow
-    abstract void clearStates();
+    private void setDefending(boolean defending) {}
     @Shadow
-    abstract void setDefending(boolean defending);
+    private void wakeUp() {}
     @Shadow
-    abstract void wakeUp();
+    protected abstract void playEatingSound();
     @Shadow
     private int ticksSinceEaten;
     @Unique
@@ -88,7 +87,7 @@ public abstract class FoxMixin extends Animal implements TameableFox {
 
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void foxesstuff$eatWhenHurt(CallbackInfo ci) {
-        if (this.level().isClientSide || !this.isAlive() || !this.foxesstuff$isFoxTame()) return;
+        if (this.level().isClientSide() || !this.isAlive() || !this.foxesstuff$isFoxTame()) return;
 
         ItemStack held = this.getItemBySlot(EquipmentSlot.MAINHAND);
         FoodProperties food = held.get(DataComponents.FOOD);
@@ -123,13 +122,18 @@ public abstract class FoxMixin extends Animal implements TameableFox {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void foxesstuff$init(EntityType<? extends Fox> type, Level level, CallbackInfo ci) {
-        this.foxesstuff$inventory = new SimpleContainer(2);
-        this.foxesstuff$inventory.addListener(container -> this.foxesstuff$onInventoryChanged());
+        this.foxesstuff$inventory = new SimpleContainer(2) {
+            @Override
+            public void setChanged() {
+                super.setChanged();
+                foxesstuff$onInventoryChanged();
+            }
+        };
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void foxesstuff$defineData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(foxesstuff$OWNER, Optional.empty());
+        builder.define(foxesstuff$OWNER, "");
         builder.define(foxesstuff$COLLAR, DyeColor.RED.getId());
         builder.define(foxesstuff$SIT, false);
         builder.define(foxesstuff$VARIANT, "");
@@ -139,15 +143,17 @@ public abstract class FoxMixin extends Animal implements TameableFox {
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void foxesstuff$registerGoals(CallbackInfo ci) {
         Fox self = (Fox) (Object) this;
-        this.goalSelector.addGoal(0, new FoxSitGoal(self));
+        this.goalSelector.addGoal(-1, new FoxSitGoal(self));
         this.goalSelector.addGoal(5, new FoxFollowOwnerGoal(self, 1.1D, 10.0F, 2.5F));
         this.targetSelector.addGoal(1, new FoxRetaliateGoal(self));
         this.targetSelector.addGoal(2, new FoxDefendOwnerGoal(self));
     }
 
     @Inject(method = "trusts", at = @At("HEAD"), cancellable = true)
-    private void foxesstuff$trusts(UUID uuid, CallbackInfoReturnable<Boolean> cir) {
-        if (this.foxesstuff$isFoxTame() && this.level().getPlayerByUUID(uuid) != null) {
+    private void foxesstuff$trusts(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
+        if (this.foxesstuff$isFoxTame()
+                && entity instanceof Player
+                && this.level().getPlayerByUUID(entity.getUUID()) != null) {
             cir.setReturnValue(true);
         }
     }
@@ -159,7 +165,7 @@ public abstract class FoxMixin extends Animal implements TameableFox {
         }
     }
 
-    @Inject(method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/Fox;", at = @At("RETURN"))
+    @Inject(method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/fox/Fox;", at = @At("RETURN"))
     private void foxesstuff$offspring(ServerLevel level, AgeableMob other, CallbackInfoReturnable<Fox> cir) {
         Fox baby = cir.getReturnValue();
         UUID owner = this.foxesstuff$getFoxOwnerUUID();
@@ -172,54 +178,46 @@ public abstract class FoxMixin extends Animal implements TameableFox {
     public void foxesstuff$dropFoxInventory() {
         ItemStack armor = this.foxesstuff$inventory.getItem(0);
         if (!armor.isEmpty()) {
-            this.spawnAtLocation(armor);
+            this.spawnAtLocation((ServerLevel) this.level(), armor);
             this.foxesstuff$inventory.setItem(0, ItemStack.EMPTY);
         }
         this.foxesstuff$inventory.setItem(1, ItemStack.EMPTY);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void foxesstuff$save(CompoundTag tag, CallbackInfo ci) {
-        CompoundTag data = new CompoundTag();
-        this.entityData.get(foxesstuff$OWNER).ifPresent(uuid -> data.putUUID("Owner", uuid));
+    private void foxesstuff$save(net.minecraft.world.level.storage.ValueOutput tag, CallbackInfo ci) {
+        net.minecraft.world.level.storage.ValueOutput data = tag.child("FoxesAndStuff");
+        UUID owner = this.foxesstuff$getFoxOwnerUUID();
+        if (owner != null) data.store("Owner", UUIDUtil.CODEC, owner);
         data.putByte("CollarColor", (byte) this.foxesstuff$getCollarColor().getId());
         data.putBoolean("OrderedToSit", this.foxesstuff$isFoxOrderedToSit());
-        CompoundTag inv = new CompoundTag();
-        for (int i = 0; i < this.foxesstuff$inventory.getContainerSize(); i++) {
-            ItemStack stack = this.foxesstuff$inventory.getItem(i);
-            if (!stack.isEmpty()) {
-                inv.put("Slot" + i, stack.save(this.registryAccess(), new CompoundTag()));
-            }
+        net.minecraft.world.level.storage.ValueOutput inventory = data.child("Inventory");
+        for (int slot = 0; slot < this.foxesstuff$inventory.getContainerSize(); slot++) {
+            ItemStack stack = this.foxesstuff$inventory.getItem(slot);
+            if (!stack.isEmpty()) inventory.store("Slot" + slot, ItemStack.CODEC, stack);
         }
-        data.put("Inventory", inv);
-        tag.put("FoxesAndStuff", data);
-        tag.putString("ModdedVariant", foxesstuff$getModdedVariant());
+        tag.putString("ModdedVariant", this.foxesstuff$getModdedVariant());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void foxesstuff$load(CompoundTag tag, CallbackInfo ci) {
-        if (tag.contains("ModdedVariant")) {
-            this.foxesstuff$setModdedVariant(tag.getString("ModdedVariant"));
-        }
-        if (!tag.contains("FoxesAndStuff")) return;
-        CompoundTag data = tag.getCompound("FoxesAndStuff");
-        if (data.hasUUID("Owner")) {
-            this.foxesstuff$setFoxOwner(data.getUUID("Owner"));
-        }
-        this.foxesstuff$setCollarColor(DyeColor.byId(data.getByte("CollarColor")));
-        this.entityData.set(foxesstuff$SIT, data.getBoolean("OrderedToSit"));
-        CompoundTag inv = data.getCompound("Inventory");
-        for (int i = 0; i < this.foxesstuff$inventory.getContainerSize(); i++) {
-            if (inv.contains("Slot" + i)) {
-                this.foxesstuff$inventory.setItem(i,
-                        ItemStack.parse(this.registryAccess(), inv.getCompound("Slot" + i)).orElse(ItemStack.EMPTY));
-            }
-        }
+    private void foxesstuff$load(net.minecraft.world.level.storage.ValueInput tag, CallbackInfo ci) {
+        tag.getString("ModdedVariant").ifPresent(this::foxesstuff$setModdedVariant);
+        tag.child("FoxesAndStuff").ifPresent(data -> {
+            this.foxesstuff$setFoxOwner(data.read("Owner", UUIDUtil.CODEC).orElse(null));
+            this.foxesstuff$setCollarColor(DyeColor.byId(data.getByteOr("CollarColor", (byte) 0)));
+            this.entityData.set(foxesstuff$SIT, data.getBooleanOr("OrderedToSit", false));
+            data.child("Inventory").ifPresent(inventory -> {
+                for (int slot = 0; slot < this.foxesstuff$inventory.getContainerSize(); slot++) {
+                    ItemStack stack = inventory.read("Slot" + slot, ItemStack.CODEC).orElse(ItemStack.EMPTY);
+                    this.foxesstuff$inventory.setItem(slot, stack);
+                }
+            });
+        });
     }
 
     @Unique
     private void foxesstuff$onInventoryChanged() {
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide()) return;
 
         ItemStack armorStack = this.foxesstuff$inventory.getItem(0);
         if (!ItemStack.matches(this.entityData.get(foxesstuff$ARMOR_STACK), armorStack)) {
@@ -246,7 +244,7 @@ public abstract class FoxMixin extends Animal implements TameableFox {
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
-        if (foxesstuff$ARMOR_STACK.equals(key) && this.level().isClientSide && this.foxesstuff$inventory != null) {
+        if (foxesstuff$ARMOR_STACK.equals(key) && this.level().isClientSide() && this.foxesstuff$inventory != null) {
             ItemStack synced = this.entityData.get(foxesstuff$ARMOR_STACK);
             if (!ItemStack.matches(synced, this.foxesstuff$inventory.getItem(0))) {
                 this.foxesstuff$inventory.setItem(0, synced.copy());
@@ -267,7 +265,7 @@ public abstract class FoxMixin extends Animal implements TameableFox {
         if (damage < 1.0F) damage = 1.0F;
 
         ItemStack armor = this.foxesstuff$inventory.getItem(0);
-        if (armor.getItem() instanceof FoxArmorItem && (!source.is(DamageTypeTags.IS_FIRE) || !armor.has(DataComponents.FIRE_RESISTANT))) {
+        if (armor.getItem() instanceof FoxArmorItem && (!source.is(DamageTypeTags.IS_FIRE) || !armor.has(DataComponents.DAMAGE_RESISTANT))) {
             armor.hurtAndBreak((int) damage, (LivingEntity) (Object) this, EquipmentSlot.BODY);
             this.foxesstuff$inventory.setChanged();
         }
@@ -296,11 +294,19 @@ public abstract class FoxMixin extends Animal implements TameableFox {
     }
 
     @Override
-    public boolean foxesstuff$isFoxTame() { return this.entityData.get(foxesstuff$OWNER).isPresent(); }
+    public boolean foxesstuff$isFoxTame() { return !this.entityData.get(foxesstuff$OWNER).isEmpty(); }
 
     @Override
     @Nullable
-    public UUID foxesstuff$getFoxOwnerUUID() { return this.entityData.get(foxesstuff$OWNER).orElse(null); }
+    public UUID foxesstuff$getFoxOwnerUUID() {
+        String owner = this.entityData.get(foxesstuff$OWNER);
+        return owner.isEmpty() ? null : UUID.fromString(owner);
+    }
+
+    @Override
+    public void foxesstuff$playEatingSound() {
+        this.playEatingSound();
+    }
 
     @Override
     @Nullable
@@ -311,7 +317,7 @@ public abstract class FoxMixin extends Animal implements TameableFox {
 
     @Override
     public void foxesstuff$setFoxOwner(@Nullable UUID uuid) {
-        this.entityData.set(foxesstuff$OWNER, Optional.ofNullable(uuid));
+        this.entityData.set(foxesstuff$OWNER, uuid == null ? "" : uuid.toString());
 
         AttributeInstance healthAttr = this.getAttribute(Attributes.MAX_HEALTH);
         if (healthAttr != null) {
@@ -325,7 +331,8 @@ public abstract class FoxMixin extends Animal implements TameableFox {
         if (uuid != null) {
             this.setCanPickUpLoot(false);
             this.setPersistenceRequired();
-            if (!this.getTrustedUUIDs().contains(uuid)) this.addTrustedUUID(uuid);
+            Player owner = this.level().getPlayerByUUID(uuid);
+            if (owner != null) this.addTrustedEntity(owner);
         } else {
             this.setCanPickUpLoot(true);
         }
@@ -336,7 +343,7 @@ public abstract class FoxMixin extends Animal implements TameableFox {
         this.foxesstuff$setFoxOwner(player.getUUID());
         ItemStack held = this.getItemBySlot(EquipmentSlot.MAINHAND);
         if (!held.isEmpty()) {
-            this.spawnAtLocation(held);
+            this.spawnAtLocation((ServerLevel) this.level(), held);
             this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
         }
 
@@ -369,10 +376,12 @@ public abstract class FoxMixin extends Animal implements TameableFox {
     @Override
     public void foxesstuff$setFoxOrderedToSit(boolean sit) {
         this.entityData.set(foxesstuff$SIT, sit);
+        ((Fox) (Object) this).setSitting(sit);
         if (sit) {
             this.getNavigation().stop();
             this.setTarget(null);
             this.setJumping(false);
+            this.setDeltaMovement(0.0D, this.getDeltaMovement().y, 0.0D);
         }
     }
 
@@ -398,9 +407,9 @@ public abstract class FoxMixin extends Animal implements TameableFox {
     }
 
     @Override
-    public boolean doHurtTarget(@NotNull Entity target) {
-        boolean hit = super.doHurtTarget(target);
-        if (hit && !this.level().isClientSide && this.foxesstuff$isFoxTame()) {
+    public boolean doHurtTarget(@NotNull ServerLevel level, @NotNull Entity target) {
+        boolean hit = super.doHurtTarget(level, target);
+        if (hit && !this.level().isClientSide() && this.foxesstuff$isFoxTame()) {
             ItemStack weapon = this.foxesstuff$inventory.getItem(1);
             if (!weapon.isEmpty() && weapon.isDamageableItem()) {
                 weapon.hurtAndBreak(1, (LivingEntity) (Object) this, EquipmentSlot.MAINHAND);
@@ -413,7 +422,7 @@ public abstract class FoxMixin extends Animal implements TameableFox {
 
     @Override
     public @NotNull ItemStack getItemBySlot(@NotNull EquipmentSlot slot) {
-        if (slot == EquipmentSlot.MAINHAND && !this.level().isClientSide && this.foxesstuff$isFoxTame()) {
+        if (slot == EquipmentSlot.MAINHAND && !this.level().isClientSide() && this.foxesstuff$isFoxTame()) {
             return this.foxesstuff$inventory.getItem(1);
         }
 
@@ -422,7 +431,7 @@ public abstract class FoxMixin extends Animal implements TameableFox {
 
     @Override
     public void setItemSlot(@NotNull EquipmentSlot slot, @NotNull ItemStack stack) {
-        if (slot == EquipmentSlot.MAINHAND && !this.level().isClientSide && this.foxesstuff$isFoxTame()) {
+        if (slot == EquipmentSlot.MAINHAND && !this.level().isClientSide() && this.foxesstuff$isFoxTame()) {
             super.setItemSlot(slot, stack);
             this.foxesstuff$inventory.setItem(1, stack);
             return;

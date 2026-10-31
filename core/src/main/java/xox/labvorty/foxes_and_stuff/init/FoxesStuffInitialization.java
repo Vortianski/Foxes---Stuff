@@ -1,6 +1,6 @@
 package xox.labvorty.foxes_and_stuff.init;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import xox.labvorty.foxes_and_stuff.FoxesStuffMod;
 import xox.labvorty.foxes_and_stuff.data.holder.ModdedFoxVariants;
 
@@ -16,7 +16,7 @@ public class FoxesStuffInitialization {
     }
 
     private static void registerVariant(String type) {
-        ResourceLocation base = FoxesStuffMod.location("textures/entity/variants/" + type);
+        Identifier base = FoxesStuffMod.location("textures/entity/variants/" + type);
         ModdedFoxVariants.registerVariant(
                 type,
                 base.withSuffix("/fox.png"),

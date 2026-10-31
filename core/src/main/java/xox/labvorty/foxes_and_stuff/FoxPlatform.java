@@ -7,10 +7,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Fox;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.apache.commons.lang3.mutable.MutableFloat;
@@ -29,10 +29,12 @@ public abstract class FoxPlatform {
         return instance;
     }
 
-    public abstract FoxArmorItem createFoxArmor(Holder<ArmorMaterial> material, Item.Properties properties);
-
     public void openFoxInventory(ServerPlayer player, Fox fox) {
         MenuRegistry.openExtendedMenu(player, new FoxInventoryMenu.Provider(fox), buf -> buf.writeInt(fox.getId()));
+    }
+
+    public FoxArmorItem createFoxArmor(ArmorMaterial material, Item.Properties properties) {
+        return new FoxArmorItem(material, properties);
     }
 
     public boolean usesArchitecturyEntityInteraction() {

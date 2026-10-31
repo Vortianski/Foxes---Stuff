@@ -6,12 +6,8 @@
     "b b"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:gold_ingot"
-    },
-    "b": {
-      "item": "minecraft:string"
-    }
+    "a": "minecraft:gold_ingot",
+    "b": "minecraft:string"
   },
   "result": {
     "id": "foxesstuff:gold_fox_armor",

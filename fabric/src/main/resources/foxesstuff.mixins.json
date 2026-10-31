@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "xox.labvorty.foxes_and_stuff.mixins",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "refmap": "foxesstuff.refmap.json",
   "mixins": [
     "FoxMixin",
@@ -9,7 +9,9 @@
   ],
   "client": [
     "client.FoxRendererMixin",
-    "client.FoxModelMixin"
+    "client.FoxModelMixin",
+    "client.FoxRenderStateMixin",
+    "client.FoxHeldItemLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,7 +1,7 @@
 package xox.labvorty.foxes_and_stuff.compat.vortylib;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import xox.labvorty.foxes_and_stuff.FoxesStuffMod;
 import xox.labvorty.foxes_and_stuff.neoforge.NeoForgeClientConfig;
 
@@ -19,7 +19,7 @@ public class VortyLibCompat {
             Class<?> socialTypeClass = load("xox.labvorty.vortylib.data.config.SocialType");
 
             Object entry = invokeStatic(entryClass, "builder", "foxesstuff", Component.literal("Foxes & Stuff"));
-            entry = invoke(entry, "featuredItemsChosen", List.of(ResourceLocation.parse("minecraft:sweet_berries")));
+            entry = invoke(entry, "featuredItemsChosen", List.of(Identifier.parse("minecraft:sweet_berries")));
 
             Object config = invokeStatic(configHolderClass, "builder", NeoForgeClientConfig.SPEC);
             config = invoke(

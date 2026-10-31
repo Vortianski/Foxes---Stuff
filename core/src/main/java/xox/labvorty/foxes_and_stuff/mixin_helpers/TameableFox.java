@@ -13,6 +13,7 @@ import java.util.UUID;
 
 public interface TameableFox {
     boolean foxesstuff$isFoxTame();
+    void foxesstuff$playEatingSound();
     @Nullable
     UUID foxesstuff$getFoxOwnerUUID();
     @Nullable

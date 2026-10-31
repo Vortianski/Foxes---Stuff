@@ -6,15 +6,16 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class GoldenBerriesItem extends Item implements FoxSpeciesRoll {
-    public GoldenBerriesItem() {
+    public GoldenBerriesItem(Properties properties) {
         super(
-                new Properties()
-                        .food(
+                properties.food(
                                 new FoodProperties.Builder()
                                         .alwaysEdible()
                                         .nutrition(4)
@@ -28,9 +29,10 @@ public class GoldenBerriesItem extends Item implements FoxSpeciesRoll {
     public void appendHoverText(
             @NotNull ItemStack itemStack,
             @NotNull TooltipContext tooltipContext,
-            @NotNull List<Component> tooltipComponents,
+            @NotNull TooltipDisplay tooltipDisplay,
+            @NotNull Consumer<Component> tooltipComponents,
             @NotNull TooltipFlag tooltipFlag
     ) {
-        tooltipComponents.add(Component.translatable("tooltip.foxesstuff.fox_species_roll").withStyle(style -> style.withColor(ChatFormatting.GRAY)));
+        tooltipComponents.accept(Component.translatable("tooltip.foxesstuff.fox_species_roll").withStyle(style -> style.withColor(ChatFormatting.GRAY)));
     }
 }

@@ -1,7 +1,7 @@
 package xox.labvorty.foxes_and_stuff.entity.ai;
 
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import xox.labvorty.foxes_and_stuff.mixin_helpers.TameableFox;
 
 import java.util.EnumSet;
@@ -20,8 +20,7 @@ public class FoxSitGoal extends Goal {
     public boolean canUse() {
         return tameable.foxesstuff$isFoxTame()
                 && tameable.foxesstuff$isFoxOrderedToSit()
-                && !fox.isInWater()
-                && fox.getTarget() == null;
+                && !fox.isInWater();
     }
 
     @Override
@@ -32,6 +31,15 @@ public class FoxSitGoal extends Goal {
     @Override
     public void start() {
         fox.getNavigation().stop();
+        fox.setTarget(null);
         fox.setJumping(false);
+    }
+
+    @Override
+    public void tick() {
+        fox.getNavigation().stop();
+        fox.setTarget(null);
+        fox.setJumping(false);
+        fox.setDeltaMovement(0.0D, fox.getDeltaMovement().y, 0.0D);
     }
 }

@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.9.2'
+    id 'dev.architectury.loom-no-remap' version '1.17-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -9,28 +9,9 @@ base {
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.officialMojangMappings()
-
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-    modApi "dev.architectury:architectury-fabric:${architectury_version}"
-
-    // Keep Loom's Fabric API module resolution aligned with Minecraft 1.21.1.
-    // fabric-loot-api-v2 metadata can request the 1.21.2 resource-loader build.
-    modApi("net.fabricmc.fabric-api:fabric-resource-loader-v0:1.3.1+5b5275af19") {
-        version { strictly "1.3.1+5b5275af19" }
-    }
-}
-
-configurations.configureEach {
-    resolutionStrategy.eachDependency { details ->
-        // Loom rewrites mod dependency groups to a mapping-specific namespace
-        // before resolving modRuntimeClasspath, so match the module name alone.
-        if (details.requested.name == "fabric-resource-loader-v0") {
-            details.useVersion "1.3.1+5b5275af19"
-            details.because "2.0.0+1bb677a619 is a 1.21.2-snapshot module, breaks on 1.21.1"
-        }
-    }
+    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    api "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    api "dev.architectury:architectury-fabric:${architectury_version}"
 }
 
 loom {

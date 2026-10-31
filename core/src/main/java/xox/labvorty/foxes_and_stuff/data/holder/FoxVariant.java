@@ -1,9 +1,9 @@
 package xox.labvorty.foxes_and_stuff.data.holder;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record FoxVariant(
-        ResourceLocation defaultTexture,
-        ResourceLocation sleepingTexture,
-        ResourceLocation fluffTexture
+        Identifier defaultTexture,
+        Identifier sleepingTexture,
+        Identifier fluffTexture
 ) {}
