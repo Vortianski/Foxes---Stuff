@@ -1,0 +1,15 @@
+{
+  "item.foxesstuff.golden_berries": "Золотые Ягоды",
+  "item.foxesstuff.leather_fox_armor": "Кожаная Лисья Броня",
+  "item.foxesstuff.iron_fox_armor": "Железная Лисья Броня",
+  "item.foxesstuff.gold_fox_armor": "Золотая Лисья Броня",
+  "item.foxesstuff.diamond_fox_armor": "Алмазная Лисья Броня",
+  "item.foxesstuff.netherite_fox_armor": "Незеритовая Лисья Броня",
+
+  "gui.foxesstuff.fox_inventory": "Инвентарь Лисы",
+  "gui.foxesstuff.fox_inventory.armor": "Броня",
+  "gui.foxesstuff.fox_inventory.weapon": "Оружие",
+  "gui.foxesstuff.fox_health": "Здоровье: %s / %s",
+
+  "tooltip.foxesstuff.fox_species_roll": "Скормите это лисе чтобы сменить её вид"
+}

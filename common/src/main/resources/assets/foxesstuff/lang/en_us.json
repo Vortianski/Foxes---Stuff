@@ -1,0 +1,15 @@
+{
+  "item.foxesstuff.golden_berries": "Golden Berries",
+  "item.foxesstuff.leather_fox_armor": "Leather Fox Armor",
+  "item.foxesstuff.iron_fox_armor": "Iron Fox Armor",
+  "item.foxesstuff.gold_fox_armor": "Gold Fox Armor",
+  "item.foxesstuff.diamond_fox_armor": "Diamond Fox Armor",
+  "item.foxesstuff.netherite_fox_armor": "Netherite Fox Armor",
+
+  "gui.foxesstuff.fox_inventory": "Fox Inventory",
+  "gui.foxesstuff.fox_inventory.armor": "Armor",
+  "gui.foxesstuff.fox_inventory.weapon": "Weapon",
+  "gui.foxesstuff.fox_health": "Health: %s / %s",
+
+  "tooltip.foxesstuff.fox_species_roll": "Feed this to a fox to change its species"
+}

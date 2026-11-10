@@ -1,0 +1,15 @@
+{
+  "item.foxesstuff.golden_berries": "Bagas Douradas",
+  "item.foxesstuff.leather_fox_armor": "Armadura de Raposa de Couro",
+  "item.foxesstuff.iron_fox_armor": "Armadura de Raposa de Ferro",
+  "item.foxesstuff.gold_fox_armor": "Armadura de Raposa de Ouro",
+  "item.foxesstuff.diamond_fox_armor": "Armadura de Raposa de Diamante",
+  "item.foxesstuff.netherite_fox_armor": "Armadura de Raposa de Netherite",
+
+  "gui.foxesstuff.fox_inventory": "Inventário da Raposa",
+  "gui.foxesstuff.fox_inventory.armor": "Armadura",
+  "gui.foxesstuff.fox_inventory.weapon": "Arma",
+  "gui.foxesstuff.fox_health": "Vida: %s / %s",
+
+  "tooltip.foxesstuff.fox_species_roll": "Alimente uma raposa com isso para mudar sua espécie"
+}

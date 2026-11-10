@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "b b"
+  ],
+  "key": {
+    "a": "minecraft:gold_ingot",
+    "b": "minecraft:string"
+  },
+  "result": {
+    "id": "foxesstuff:gold_fox_armor",
+    "count": 1
+  }
+}

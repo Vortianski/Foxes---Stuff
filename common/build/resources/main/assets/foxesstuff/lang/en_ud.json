@@ -1,0 +1,15 @@
+{
+  "item.foxesstuff.golden_berries": "sǝᴉɹɹǝᗺ uǝpꞁo⅁",
+  "item.foxesstuff.leather_fox_armor": "ɹoɯɹ∀ xoℲ ɹǝɥʇɐǝꞁ",
+  "item.foxesstuff.iron_fox_armor": "ɹoɯɹ∀ xoℲ uoɹI",
+  "item.foxesstuff.gold_fox_armor": "ɹoɯɹ∀ xoℲ pꞁo⅁",
+  "item.foxesstuff.diamond_fox_armor": "ɹoɯɹ∀ xoℲ punoɯɐᴉᗡ",
+  "item.foxesstuff.netherite_fox_armor": "ɹoɯɹ∀ xoℲ ǝʇᴉɹǝɥʇǝN",
+
+  "gui.foxesstuff.fox_inventory": "ʎɹoʇuǝʌuI xoℲ",
+  "gui.foxesstuff.fox_inventory.armor": "ɹoɯɹ∀",
+  "gui.foxesstuff.fox_inventory.weapon": "uodɐǝM",
+  "gui.foxesstuff.fox_health": "ɥʇꞁɐǝH: %s / %s",
+
+  "tooltip.foxesstuff.fox_species_roll": "sǝᴉɔǝds sʇᴉ ǝƃuɐɥɔ oʇ xoɟ ɐ oʇ sᴉɥʇ pǝǝℲ"
+}

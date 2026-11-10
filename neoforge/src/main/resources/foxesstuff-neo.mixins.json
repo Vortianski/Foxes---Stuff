@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "xox.labvorty.foxes_and_stuff.neo_mixins",
+  "compatibilityLevel": "JAVA_25",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "LivingEntityDataMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

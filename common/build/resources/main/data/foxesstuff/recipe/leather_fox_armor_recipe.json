@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "b b"
+  ],
+  "key": {
+    "a": "minecraft:leather",
+    "b": "minecraft:string"
+  },
+  "result": {
+    "id": "foxesstuff:leather_fox_armor",
+    "count": 1
+  }
+}

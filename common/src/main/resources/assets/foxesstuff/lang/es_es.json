@@ -1,0 +1,15 @@
+{
+  "item.foxesstuff.golden_berries": "Bayas doradas",
+  "item.foxesstuff.leather_fox_armor": "Armadura de cuero para zorro",
+  "item.foxesstuff.iron_fox_armor": "Armadura de hierro para zorro",
+  "item.foxesstuff.gold_fox_armor": "Armadura de oro para zorro",
+  "item.foxesstuff.diamond_fox_armor": "Armadura de diamante para zorro",
+  "item.foxesstuff.netherite_fox_armor": "Armadura de netherita para zorror",
+
+  "gui.foxesstuff.fox_inventory": "Inventario de zorro",
+  "gui.foxesstuff.fox_inventory.armor": "Armadura",
+  "gui.foxesstuff.fox_inventory.weapon": "Arma",
+  "gui.foxesstuff.fox_health": "Vida: %s / %s",
+
+  "tooltip.foxesstuff.fox_species_roll": "Dale esto a un zorro para cambiar su especie"
+}

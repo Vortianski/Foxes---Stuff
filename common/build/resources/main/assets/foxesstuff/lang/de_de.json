@@ -1,0 +1,15 @@
+{
+  "item.foxesstuff.golden_berries": "Goldbeeren",
+"item.foxesstuff.leather_fox_armor": "Lederne Fuchsrüstung",
+  "item.foxesstuff.iron_fox_armor": "Eiserne Fuchsrüstung",
+  "item.foxesstuff.gold_fox_armor": "Goldene Fuchsrüstung",
+  "item.foxesstuff.diamond_fox_armor": "Diamantene Fuchsrüstung",
+  "item.foxesstuff.netherite_fox_armor": "Netherit-Fuchsrüstung",
+  
+  "gui.foxesstuff.fox_inventory": "Fuchsinventar",
+  "gui.foxesstuff.fox_inventory.armor": "Rüstung",
+  "gui.foxesstuff.fox_inventory.weapon": "Waffe",
+  "gui.foxesstuff.fox_health": "Lebenspunkte: %s / %s",
+
+  "tooltip.foxesstuff.fox_species_roll": "Verfüttere dies an einen Fuchs, um seine Art zu ändern"
+}

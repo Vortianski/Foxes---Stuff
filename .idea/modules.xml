@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/foxesstuff.iml" filepath="$PROJECT_DIR$/.idea/modules/foxesstuff.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/foxesstuff.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/foxesstuff.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/foxesstuff.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/foxesstuff.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/foxesstuff.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/foxesstuff.common.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/foxesstuff.fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/foxesstuff.fabric.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/foxesstuff.fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/foxesstuff.fabric.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/foxesstuff.neoforge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/foxesstuff.neoforge.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/foxesstuff.neoforge.test.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/foxesstuff.neoforge.test.iml" />
+    </modules>
+  </component>
+</project>

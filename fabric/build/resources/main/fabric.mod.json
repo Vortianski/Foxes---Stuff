@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "foxesstuff",
+  "version": "1.1.1",
+  "name": "Foxes & Stuff",
+  "description": "Mod that adds tameable foxes",
+  "authors": [
+    "Vortianski"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "xox.labvorty.foxes_and_stuff.fabric.FoxesAndStuffModFabric"
+    ],
+    "client": [
+      "xox.labvorty.foxes_and_stuff.fabric.client.FoxesAndStuffModFabricClient"
+    ]
+  },
+  "mixins": [
+    "foxesstuff.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "minecraft": "~26.1.2",
+    "java": ">=25",
+    "architectury": ">=20.1.16",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

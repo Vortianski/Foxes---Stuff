@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "xox.labvorty.foxes_and_stuff.mixins",
+  "compatibilityLevel": "JAVA_25",
+  "minVersion": "0.8",
+  "client": [
+    "client.FoxModelMixin",
+    "client.FoxRendererMixin",
+    "client.FoxRenderStateMixin",
+    "client.FoxHeldItemLayerMixin"
+  ],
+  "mixins": [
+    "FoxMixin",
+    "LivingEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

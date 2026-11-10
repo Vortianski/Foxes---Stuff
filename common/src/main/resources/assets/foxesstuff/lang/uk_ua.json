@@ -1,0 +1,15 @@
+{
+  "item.foxesstuff.golden_berries": "Золоті ягоди",
+  "item.foxesstuff.leather_fox_armor": "Шкіряна броня для лисиці",
+  "item.foxesstuff.iron_fox_armor": "Залізна броня для лисиці",
+  "item.foxesstuff.gold_fox_armor": "Золота броня для лисиці",
+  "item.foxesstuff.diamond_fox_armor": "Діамантова броня для лисиці",
+  "item.foxesstuff.netherite_fox_armor": "Незеритова броня для лисиці",
+
+  "gui.foxesstuff.fox_inventory": "Інвентар лисиці",
+  "gui.foxesstuff.fox_inventory.armor": "Броня",
+  "gui.foxesstuff.fox_inventory.weapon": "Зброя",
+  "gui.foxesstuff.fox_health": "Здоров'я: %s / %s",
+
+  "tooltip.foxesstuff.fox_species_roll": "Нагодуйте цим лисицю, щоб змінити її вид"
+}

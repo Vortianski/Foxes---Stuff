@@ -1,0 +1,15 @@
+{
+  "item.foxesstuff.golden_berries": "Golden Beries",
+  "item.foxesstuff.leather_fox_armor": "lether fox armur",
+  "item.foxesstuff.iron_fox_armor": "iron fox armur",
+  "item.foxesstuff.gold_fox_armor": "shiny fox armur",
+  "item.foxesstuff.diamond_fox_armor": "super cool fox armur",
+  "item.foxesstuff.netherite_fox_armor": "Netherite fox armur",
+
+  "gui.foxesstuff.fox_inventory": "Fuxe Inventari",
+  "gui.foxesstuff.fox_inventory.armor": "Armur",
+  "gui.foxesstuff.fox_inventory.weapon": "Wepon",
+  "gui.foxesstuff.fox_health": "Fuxe Hartz: %s / %s",
+
+  "tooltip.foxesstuff.fox_species_roll": "Feed dis 2 a fuxe 2 chengz itz speeshiez"
+}

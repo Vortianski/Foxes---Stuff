@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "foxesstuff:item/netherite_fox_armor"
+  }
+}

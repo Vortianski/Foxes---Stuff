@@ -1,0 +1,41 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+#issueTrackerURL = ""
+license = "Insert License Here"
+
+[[mods]]
+modId = "foxesstuff"
+version = "${version}"
+displayName = "Foxes & Stuff"
+authors = "Vortianski"
+description = '''
+Mod that adds tameable foxes
+'''
+logoFile = "icon.png"
+
+[[dependencies.foxesstuff]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.1.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.foxesstuff]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.1.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.foxesstuff]]
+modId = "architectury"
+type = "required"
+versionRange = "[20.1.16,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[mixins]]
+config = "foxesstuff.mixins.json"
+
+[[mixins]]
+config = "foxesstuff-neo.mixins.json"
